@@ -1,0 +1,39 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+}
+
+mat-card {
+  width: 280px;
+}
+
+.pair {
+  display: flex;
+  justify-content: space-between;
+  margin: 6px 0;
+}
+
+.label {
+  font-weight: bold;
+  color: #444;
+}
+
+.rating-num {
+  margin-left: 6px;
+  font-weight: 500;
+}
+
+.top-rated {
+  border: 2px solid gold;
+}
+
+mat-form-field {
+  margin-left: 10px;
+}

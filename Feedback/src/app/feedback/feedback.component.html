@@ -1,0 +1,61 @@
+<div class="feedback-form">
+  <h2>Feedback Form</h2>
+
+  <form [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
+    
+    <!-- Name -->
+    <div>
+      <label>Name*</label>
+      <input type="text" formControlName="name" />
+      <div class="error" *ngIf="submitted && f['name'].errors?.['required']">
+        Name is required
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div>
+      <label>Email*</label>
+      <input type="email" formControlName="email" />
+      <div class="error" *ngIf="submitted && f['email'].errors?.['required']">
+        Email is required
+      </div>
+      <div class="error" *ngIf="submitted && f['email'].errors?.['email']">
+        Enter a valid email
+      </div>
+    </div>
+
+    <!-- Subject -->
+    <div>
+      <label>Subject*</label>
+      <input type="text" formControlName="subject" maxlength="40" />
+      <div class="char-counter">{{ f['subject'].value?.length || 0 }}/40</div>
+      <div class="error" *ngIf="submitted && f['subject'].errors?.['required']">
+        Subject is required
+      </div>
+      <div class="error" *ngIf="submitted && f['subject'].errors?.['maxlength']">
+        Maximum 40 characters allowed
+      </div>
+    </div>
+
+    <!-- Comments -->
+    <div>
+      <label>Comments*</label>
+      <textarea formControlName="comments" rows="4" maxlength="350"></textarea>
+      <div class="char-counter">{{ f['comments'].value?.length || 0 }}/350</div>
+      <div class="error" *ngIf="submitted && f['comments'].errors?.['required']">
+        Comment is required
+      </div>
+      <div class="error" *ngIf="submitted && f['comments'].errors?.['maxlength']">
+        Maximum 350 characters allowed
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <button type="submit" [disabled]="feedbackForm.invalid">Submit</button>
+  </form>
+
+  <!-- Success Message -->
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+</div>

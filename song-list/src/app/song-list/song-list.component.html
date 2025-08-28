@@ -1,0 +1,56 @@
+<mat-toolbar color="primary">
+
+  <span class="spacer"></span>
+
+  <!-- Filter by Artist -->
+  <mat-form-field appearance="outline">
+    <mat-label>Filter by Artist</mat-label>
+    <mat-select [(ngModel)]="selectedArtist">
+      <mat-option value="">Filter by Artist</mat-option>
+      <mat-option *ngFor="let a of uniqueArtists" [value]="a">{{ a }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Filter by Album -->
+  <mat-form-field appearance="outline">
+    <mat-label>Filter by Album</mat-label>
+    <mat-select [(ngModel)]="selectedAlbum">
+      <mat-option value="">Filter by Album</mat-option>
+      <mat-option *ngFor="let al of uniqueAlbums" [value]="al">{{ al }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-toolbar>
+
+<div class="grid">
+  <mat-card *ngFor="let s of filteredSongs" [class.top-rated]="isTopRated(s.rating)">
+    
+    <img mat-card-image [src]="s.imageUrl" [alt]="s.album + ' poster'">
+
+    <mat-card-header>
+      <mat-card-title>{{ s.name }}</mat-card-title>
+      <mat-card-subtitle>{{ s.artist }} • {{ s.album }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <div class="pair"><span class="label">Artist</span><span>{{ s.artist }}</span></div>
+    <div class="pair"><span class="label">Album</span><span>{{ s.album }}</span></div>
+    <div class="pair"><span class="label">Duration</span><span>{{ formatDuration(s.durationSec) }}</span></div>
+    <div class="pair">
+      <span class="label">Rating</span>
+      <span>
+        <mat-icon *ngFor="let i of [1,2,3,4,5]; let idx = index">
+          {{ idx + 1 <= round(s.rating) ? 'star' : 'star_border' }}
+        </mat-icon>
+        <span class="rating-num">{{ s.rating | number:'1.1-1' }}</span>
+      </span>
+    </div>
+
+    <mat-card-actions align="end">
+      <button mat-fab color="accent" *ngIf="currentSong !== s.name" (click)="playSong(s)">
+        <mat-icon>play_arrow</mat-icon>
+      </button>
+      <button mat-fab color="warn" *ngIf="currentSong === s.name" (click)="stopSong()">
+        <mat-icon>stop</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
